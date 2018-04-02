@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hu.tbk.repository.SiteInfoRepository">
+    <resultMap id="m_site_info" type="com.hu.tbk.domain.SiteInfo">
+        <id column="f_id" property="id"/>
+        <result column="f_name" property="name"/>
+        <result column="f_keywords" property="keywords"/>
+        <result column="f_description" property="description"/>
+        <result column="f_icon" property="icon"/>
+        <result column="f_footer" property="footer"/>
+        <result column="f_url" property="url"/>
+        <result column="f_top_background_image" property="topBackgroundImage"/>
+        <result column="f_slogan_title1" property="sloganTitle1"/>
+        <result column="f_slogan_content1" property="sloganContent1"/>
+        <result column="f_slogan_title2" property="sloganTitle2"/>
+        <result column="f_slogan_content2" property="sloganContent2"/>
+        <result column="f_time" property="time"/>
+    </resultMap>
+    <insert id="create" parameterType="com.hu.tbk.domain.SiteInfo">
+insert into m_site_info
+( f_id,f_name,f_keywords,f_description,f_icon,f_footer,f_url,f_top_background_image,f_slogan_title1,
+f_slogan_content1,f_slogan_title2,f_slogan_content2,f_time)
+values (#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{keywords,jdbcType=VARCHAR},
+#{description,jdbcType=VARCHAR},#{icon,jdbcType=VARCHAR},#{footer,jdbcType=VARCHAR},
+#{url,jdbcType=VARCHAR},#{topBackgroundImage,jdbcType=VARCHAR},#{sloganTitle1,jdbcType=VARCHAR},
+#{sloganContent1,jdbcType=VARCHAR},#{sloganTitle2,jdbcType=VARCHAR},#{sloganContent2,jdbcType=VARCHAR},
+#{time,jdbcType=BIGINT})
+</insert>
+    <update id="update" parameterType="com.hu.tbk.domain.SiteInfo">
+update m_site_info set f_name=#{name,jdbcType=VARCHAR},f_keywords=#{keywords,jdbcType=VARCHAR},
+f_description=#{description,jdbcType=VARCHAR},f_icon=#{icon,jdbcType=VARCHAR},f_footer=#{footer,jdbcType=VARCHAR},
+f_url=#{url,jdbcType=VARCHAR},f_top_background_image=#{topBackgroundImage,jdbcType=VARCHAR},
+f_slogan_title1=#{sloganTitle1,jdbcType=VARCHAR},f_slogan_content1=#{sloganContent1,jdbcType=VARCHAR},
+f_slogan_title2=#{sloganTitle2,jdbcType=VARCHAR},f_slogan_content2=#{sloganContent2,jdbcType=VARCHAR},
+f_time=#{time,jdbcType=BIGINT} where f_id=#{id}
+</update>
+    <select id="findById" resultMap="m_site_info">select * from m_site_info where f_id=#{id}</select>
+</mapper>

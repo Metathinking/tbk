@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../resources/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../../resources/css/prettyPhoto.css"/>
+    <link rel="stylesheet" href="../../resources/css/main.css"/>
+    <link rel="stylesheet" href="../../resources/css/tbk.css"/>
+    <script src="../../resources/js/jquery-2.2.1.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/angular-1.5.0.min.js"></script>
+    <link rel="shortcut icon" href="../../resources/images/favicon.ico"/>
+    <style>
+
+        .product-item:hover{
+            /*border: 1px solid #F40;*/
+            box-shadow: 0 0 10px rgba(0,0,0,.4);
+            -o-box-shadow:  0 0 10px rgba(0,0,0,.4);
+            -moz-box-shadow:  0 0 10px rgba(0,0,0,.4);
+            -moz-box-shadow:  0 0 10px rgba(0,0,0,.4);
+        }
+        .price-old {
+            color: #bbb;
+            text-decoration: line-through;
+            font-size: 12px;
+        }
+        .price-new {
+            color: #F40;
+            font-size: 14px;
+        }
+        .quan{
+            background: #f0ad4e;
+            border-radius: 2px;
+            color: white;
+            padding: 2px;
+        }
+        .item-time,.item-sales{
+            color: #9b9b9b;
+            font-size: 12px;
+        }
+        .item-button{
+            position: relative;
+            right: 0;
+        }
+        .item-tmall{
+            /*background-image:url(/resources/images/tmall.ico) ;*/
+            display: inline-block;
+            background-image:url(//img.alicdn.com/tps/i3/TB1bh5IMpXXXXacaXXXrG06ZpXX-316-272.png) ;
+            background-repeat: no-repeat;
+            width: 16px;
+            height: 16px;
+        }
+        .footer{
+            background-color: #373737;
+            height: 190px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body ng-app="app" data-spy="scroll" data-target="#navbar" data-offset="0" ng-controller="testCtrl">
+<header id="header" role="banner">
+    <div class="container">
+        <!--<div id="navbar" class="navbar navbar-default">-->
+        <div id="navbar" class="thumbnail navbar" style="height: 105px;">
+            <div class="navbar-header">
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">-->
+                    <!--<span class="sr-only">Toggle navigation</span>-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                <!--</button>-->
+                <a class="navbar-brand" href="http://shapebootstrap.net/demo/html/xeon/index.html">
+                    <!--<img src="http://shop.wefreetry.com/logo.jpg"/>-->
+                    <img src="../../resources/images/front_logo.jpg"/>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" style="margin-top: 35px">
+                <div class="dropdown form-group" >
+                    <div class="input-group" style="width:500px">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true"><span ng-bind="selectSearchType.name"></span><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <!--<li><a href="#">商品名称</a></li>-->
+                                <!--<li><a href="#">店铺</a></li>-->
+                                <!--<li><a href="#">分类</a></li>-->
+                                <li ng-repeat="x in searchTypeList" ng-if="x!=selectSearchType" ng-click="select(x)"><a href="#">{{x.name}}</a> </li>
+                            </ul>
+                        </div><!-- /btn-group -->
+                        <input type="text" class="form-control" aria-label="..." placeholder="总得说点什么吧" ng-model="searchName"/>
+                    <span class="input-group-btn">
+                         <button class="btn btn-warning" type="button" ng-click="search()">搜索</button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section id="main-slider" class="carousel">
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-content">
+                    <h1>多省点</h1>
+                    <p class="lead">我们只是想让你多省一点</p>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="container">
+                <div class="carousel-content">
+                    <h1>ShapeBootstrap.net</h1>
+                    <p class="lead">Download free but 100% premium quaility twitter Bootstrap based WordPress and HTML themes </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="prev" href="http://shapebootstrap.net/demo/html/xeon/#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
+    <a class="next" href="http://shapebootstrap.net/demo/html/xeon/#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>
+</section>
+
+<section id="services">
+    <div class="container">
+        <div class="box first">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-3 " ng-repeat="x in list">
+                    <div class="thumbnail product-item">
+                        <a href="https://vuejs.bootcss.com/" title="Vue.js - 渐进式 JavaScript 框架" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'vuejs'])">
+                            <img class="lazy" src="http://img.alicdn.com/imgextra/i3/784777702/TB2.SopdJBopuFjSZPcXXc9EpXa_!!784777702.jpg_270x270.jpg" style="width:200px;height: 200px;"
+                                  data-src="https://static.bootcss.com/www/assets/img/vuejs.png" alt="vuejs"></a>
+                        <div class="caption">
+                            <p >
+                                <span class="item-tmall"></span>
+                                <span class="item-sales pull-right">1999笔成交</span>
+                            </p>
+                            <div>
+                                <span class="quan">满1000减50</span>
+                                <span class="item-time">2017-7-7 截止</span>
+                            </div>
+                            <div>
+                                <span class="price-new"><strong>￥</strong><span style="font-size: 24px">100</span>   <span style="font-size: 12px">券后价</span></span>
+                                <span class="price-old">￥1000</span>
+                            </div>
+                            <p>
+                                <a href="https://vuejs.bootcss.com/" title="Vue.js - 渐进式 JavaScript 框架" target="_blank" style="font-size: 12px">
+                                    加一联创 EO320 1MORE金澈耳机升级版耳塞式入耳式线控带麦可通话
+                                </a>
+                            </p>
+                            <button class="btn btn-danger item-button">领券下单>></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="center">
+    <nav aria-label="Page navigation">
+        <ul class="pagination pagination-lg">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
+<footer>
+    <section class="footer">
+        <div class="container text-center ">
+
+            <h3 style="margin-top: 60px;"><strong>多省点</strong>——我们只是想让你多省一点</h3>
+            <h4 style="margin-top: 60px;"> © CopyRight 2017  多省点  http://www.duoshengdian.com</h4>
+
+        </div>
+    </section>
+</footer>
+</body>
+</html>
+<script>
+    angular.module("app", [])
+            .controller("testCtrl", function ($scope, $http) {
+                var all={name:'全部',value:'all'};
+                var productName={name:'商品',value:'productName'};
+                var salerName={name:'店铺',value:'salerName'};
+                var category={name:'分类',value:'category'};
+                $scope.searchTypeList=[all,productName,salerName,category];
+                $scope.selectSearchType=all;
+                $scope.select=function(item){
+                    $scope.selectSearchType=item;
+                }
+                $scope.search=function () {
+                    window.location.href="/home?searchType="+$scope.selectSearchType.value+"&name="+$scope.searchName;
+                }
+                $scope.primevalUrl='';
+                $scope.list=[1,2,3,4,5,6,7,8,9];
+                $scope.change=function(){
+                    var req = {
+                        method: 'POST',
+                        url: '/home',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data:$scope.primevalUrl
+                    };
+                    $http(req).success(function (response, status, headers, cfg) {
+                        if (response.success) {
+                            $scope.afterUrl = response.data
+                        } else {
+                        }
+                    }).error(function (response, status, headers, cfg) {
+                        $scope.error = response;
+                    })
+                };
+
+
+            })
+</script>

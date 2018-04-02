@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hu.tbk.repository.ProductRepository">
+    <resultMap id="m_product" type="com.hu.tbk.domain.Product">
+        <id column="f_id" property="id"/>
+        <result column="f_product_id" property="productId"/>
+        <result column="f_name" property="name"/>
+        <result column="f_image" property="image"/>
+        <result column="f_detail" property="detail"/>
+        <result column="f_category" property="category"/>
+        <result column="f_price" property="price"/>
+        <result column="f_sales" property="sales"/>
+        <result column="f_scale" property="scale"/>
+        <result column="f_money" property="money"/>
+        <result column="f_saler_id" property="salerId"/>
+        <result column="f_saler_name" property="salerName"/>
+        <result column="f_saler_category" property="salerCategory"/>
+        <result column="f_coupon_id" property="couponId"/>
+        <result column="f_coupon_count" property="couponCount"/>
+        <result column="f_coupon_surplus" property="couponSurplus"/>
+        <result column="f_coupon_detail" property="couponDetail"/>
+        <result column="f_start_time" property="startTime"/>
+        <result column="f_end_time" property="endTime"/>
+        <result column="f_tuiguang_url" property="tuiguangUrl"/>
+    </resultMap>
+    <insert id="create" parameterType="com.hu.tbk.domain.Product">
+insert into m_product ( f_id,f_product_id,f_name,f_image,f_detail,f_category,f_price,f_sales,
+f_scale,f_money,f_saler_id,f_saler_name,f_saler_category,f_coupon_id,f_coupon_count,f_coupon_surplus,
+f_coupon_detail,f_start_time,f_end_time,f_tuiguang_url)
+values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id,jdbcType=VARCHAR},#{item.productId,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},
+            #{item.image,jdbcType=VARCHAR},#{item.detail,jdbcType=VARCHAR},#{item.category,jdbcType=VARCHAR},
+            #{item.price,jdbcType=DOUBLE},#{item.sales,jdbcType=INTEGER},#{item.scale,jdbcType=DOUBLE},#{item.money,jdbcType=DOUBLE},
+            #{item.salerId,jdbcType=VARCHAR},#{item.salerName,jdbcType=VARCHAR},#{item.salerCategory,jdbcType=VARCHAR},
+            #{item.couponId,jdbcType=VARCHAR},#{item.couponCount,jdbcType=INTEGER},#{item.couponSurplus,jdbcType=INTEGER},
+            #{item.couponDetail,jdbcType=VARCHAR},#{item.startTime,jdbcType=BIGINT},#{item.endTime,jdbcType=BIGINT},
+            #{item.tuiguangUrl,jdbcType=VARCHAR})
+        </foreach>
+</insert>
+    <delete id="delete">
+      delete from m_product where f_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            item
+        </foreach>
+      </delete>
+    <select id="list" resultMap="m_product">
+select * from m_product
+order by f_id limit #{start},#{size}
+</select>
+    <select id="getCount" resultType="int">
+select count(f_id) FROM m_product
+    </select>
+    <select id="getMaxId" resultType="int">select IFNULL(max(f_id),10000) FROM m_product</select>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hu.tbk.repository.UrlRecordRepository">
+    <resultMap id="m_url_record" type="com.hu.tbk.domain.UrlRecord">
+        <id column="f_id" property="id"/>
+        <result column="f_product_record_id"  property="productRecordId"/>
+        <result column="f_primeval_url" property="primevalUrl"/>
+        <result column="f_after_url" property="afterUrl"/>
+        <result column="f_end_time" property="endTime"/>
+    </resultMap>
+    <insert id="create" parameterType="com.hu.tbk.domain.UrlRecord">
+insert into m_url_record ( f_id,f_product_record_id,f_primeval_url,f_after_url,f_end_time)
+values (#{id,jdbcType=INTEGER},#{productRecordId,jdbcType=INTEGER},#{primevalUrl,jdbcType=VARCHAR},#{afterUrl,jdbcType=VARCHAR},
+#{endTime,jdbcType=BIGINT})
+</insert>
+    <delete id="deleteByProductRecordIds">
+        delete from m_url_record where f_product_record_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <select id="list" resultMap="m_url_record">select * from m_url_record order by f_id limit #{start},#{size}</select>
+    <select id="find" resultMap="m_url_record">select * from m_url_record where f_after_url=#{afterUrl}</select>
+    <select id="getCount" resultType="int">select count(f_id) FROM m_url_record</select>
+    <select id="getMaxId" resultType="int">select IFNULL(max(f_id),10000) FROM m_url_record</select>
+    <select id="deleteOverDue">
+        DELETE from m_url_record
+        where  <![CDATA[ f_end_time < #{now} ]]>
+    </select>
+    <delete id="deleteAll">
+        delete from m_url_record
+    </delete>
+    <select id="listDuplicateIds" resultType="java.lang.Integer">
+        select f_id FROM m_url_record
+WHERE f_after_url in
+(SELECT f_after_url FROM m_url_record  group by f_after_url having count(f_id)>1)
+and f_id not in
+(SELECT min(f_id) FROM m_url_record  group by f_after_url having count(f_id)>1)
+    </select>
+    <delete id="delete">
+        delete from m_url_record where f_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

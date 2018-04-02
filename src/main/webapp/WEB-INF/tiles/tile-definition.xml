@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dts/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="adminBaseLayout" template="/WEB-INF/tiles/template/baseLayout.jsp">
+        <put-attribute name="title" value="最新内部优惠券"/>
+        <put-attribute name="top-navigation" value="/WEB-INF/tiles/template/top-navigation.jsp"/>
+        <put-attribute name="left-navigation" value=""/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="margin-top" value="56px"/>
+        <put-attribute name="main" value=""/>
+    </definition>
+
+    <definition name="admin/login" extends="adminBaseLayout">
+        <put-attribute name="main" value="/WEB-INF/jsp/admin/login.jsp"/>
+        <put-attribute name="margin-top" value="0"/>
+        <put-attribute name="top-navigation" value=""/>
+    </definition>
+
+    <definition name="recordBaseLayout" extends="adminBaseLayout">
+        <put-attribute name="left-navigation" value="/WEB-INF/tiles/template/left-record-navigation.jsp"/>
+    </definition>
+
+    <definition name="admin/file_upload" extends="recordBaseLayout">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/file_upload.jsp"/>
+    </definition>
+    <definition name="admin/admin-login-log" extends="recordBaseLayout">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/admin-login-log.jsp"/>
+    </definition>
+    <definition name="admin/site-info-edit" extends="recordBaseLayout">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/site-info-edit.jsp"/>
+    </definition>
+
+    <definition name="admin/product-list" extends="adminBaseLayout">
+        <put-attribute name="main" value="/WEB-INF/jsp/admin/product-list.jsp"/>
+    </definition>
+
+
+
+</tiles-definitions>
